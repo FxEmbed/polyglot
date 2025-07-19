@@ -1,0 +1,23 @@
+import { translate } from 'bing-translate-api';
+import { TranslationProvider } from './types.js';
+import type { TranslationResponse } from './types.js';
+
+export class BingTranslateProvider extends TranslationProvider {
+  name = 'bing';
+
+  async translate(text: string, targetLang: string, sourceLang?: string): Promise<TranslationResponse> {
+    // Use null for auto-detect if sourceLang is not provided
+    const result = await translate(text, sourceLang || null, targetLang);
+    
+    if (!result || !result.translation) {
+      throw new Error('Bing translation failed: no result returned');
+    }
+    
+    return {
+      text: result.translation,
+      source_lang: sourceLang || result.language?.from || 'auto',
+      target_lang: targetLang,
+      provider: this.name
+    };
+  }
+} 

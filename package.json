@@ -1,0 +1,25 @@
+{
+  "name": "polyglot",
+  "version": "1.0.0",
+  "description": "Polyglot is a scalable translation service, using a variety of different providers.",
+  "author": "FxEmbed",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/FxEmbed/polyglot"
+  },
+  "module": "index.ts",
+  "type": "module",
+  "private": true,
+  "devDependencies": {
+    "@types/bun": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5"
+  },
+  "dependencies": {
+    "@vitalets/google-translate-api": "^9.2.1",
+    "bing-translate-api": "^4.1.0",
+    "deeplx": "^0.3.2"
+  }
+}
