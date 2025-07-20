@@ -99,7 +99,7 @@ export class TranslationService {
 
     // Try primary provider
     try {
-      console.log(`Attempting translation with ${primaryProvider.name}`);
+      console.log(`Attempting translation with ${primaryProvider.name} for language ${targetLang}`);
       return await primaryProvider.translate(text, targetLang, sourceLang);
     } catch (error) {
       console.error(`${primaryProvider.name} failed:`, error);
@@ -107,7 +107,7 @@ export class TranslationService {
       // Try fallback providers so at least we get SOMETHING
       for (const provider of fallbackProviders) {
         try {
-          console.log(`Falling back to ${provider.name}...`);
+          console.log(`Falling back to ${provider.name} for language ${targetLang}`);
           return await provider.translate(text, targetLang, sourceLang);
         } catch (fallbackError) {
           console.error(`${provider.name} fallback failed:`, fallbackError);
