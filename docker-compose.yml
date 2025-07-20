@@ -19,10 +19,14 @@ services:
       # Optional: DeepLX Cloudflare Worker (uncomment and set if deployed)
       # - DEEPLX_CLOUDFLARE_URL=https://deeplx.example.workers.dev
       
-      # Optional: AWS Translate (uncomment and set if you have keys)
-      # - AWS_ACCESS_KEY_ID=your_access_key_id
-      # - AWS_SECRET_ACCESS_KEY=your_access_key
-      # - AWS_REGION=us-east-1
+             # Optional: AWS Translate (uncomment and set if you have keys)
+       # - AWS_ACCESS_KEY_ID=your_access_key_id
+       # - AWS_SECRET_ACCESS_KEY=your_access_key
+       # - AWS_REGION=us-east-1
+       
+       # Optional: LibreTranslate (self-hosted or public instance)
+       # - LIBRETRANSLATE_URL=https://libretranslate.com
+       # - LIBRETRANSLATE_API_KEY=your_api_key_if_required
     restart: unless-stopped
     healthcheck:
       test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:3220/ping"]

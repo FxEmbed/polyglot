@@ -1,4 +1,4 @@
-import { TranslationProvider, GoogleTranslateProvider, DeepLXProvider, DeepLXCloudflareProvider, BingTranslateProvider, AzureProvider, DeepLProvider, DeepLXVercelProvider, AWSProvider } from './providers/index.js';
+import { TranslationProvider, GoogleTranslateProvider, DeepLXProvider, DeepLXCloudflareProvider, BingTranslateProvider, AzureProvider, DeepLProvider, DeepLXVercelProvider, AWSProvider, LibreTranslateProvider } from './providers/index.js';
 import type { TranslationResponse } from './providers/index.js';
 
 export class TranslationService {
@@ -11,6 +11,7 @@ export class TranslationService {
     new AzureProvider(),
     new DeepLProvider(),
     new AWSProvider(),
+    new LibreTranslateProvider(),
   ];
 
   private availableProviders: TranslationProvider[];

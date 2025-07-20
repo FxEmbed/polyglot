@@ -63,7 +63,15 @@ const server = Bun.serve({
         });
       }
     }
-    
+
+    if (url.pathname === "/") {
+      return new Response(`This is an instance of polyglot, a scalable translation service: https://github.com/FxEmbed/polyglot`, {
+        status: 200,
+        headers: {
+          "Content-Type": "text/plain",
+        },
+      });
+    }
     return new Response("Not Found", {
       status: 404,
       headers: {

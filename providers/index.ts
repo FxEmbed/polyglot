@@ -8,3 +8,4 @@ export { BingTranslateProvider } from './bing.js';
 export { AzureProvider } from './azure.js';
 export { DeepLProvider } from './deepl.js';
 export { AWSProvider } from './aws.js';
+export { LibreTranslateProvider } from './libretranslate.js';

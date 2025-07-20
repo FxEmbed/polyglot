@@ -4,7 +4,7 @@ A fast, reliable, and modular translation API designed to meet the scale require
 
 ## 🔄 Native Multi-Provider Architecture
 
-We support both scraping free translations from popular services like Google Translate, Bing Translate, and DeepL, as well as paid APIs such as Azure, DeepL API, and AWS Translate.
+We support scraping free translations from popular services like Google Translate, Bing Translate, and DeepL, using official APIs such as Azure AI Translator, DeepL API, and AWS Translate, as well as self-hosted alternative LibreTranslate.
 
 - 🎯 **Dynamic Selection**: Chooses between providers based on target language and availability
 - ⚖️ **Load Balancing and Rate Limit Leveling**: Distributes requests across providers
@@ -52,6 +52,10 @@ DEEPL_API_KEY="your_deepl_key"
 AWS_ACCESS_KEY_ID="your_access_key_id"
 AWS_SECRET_ACCESS_KEY="your_access_key"
 AWS_REGION="your_region" # optional, defaults to us-east-1
+
+# LibreTranslate (self-hosted or public instance)
+LIBRETRANSLATE_URL="https://translate.example.com"
+LIBRETRANSLATE_API_KEY="your_api_key_if_required" # optional for some instances
 ```
 
 **Note**: Free providers (Google Translate, Bing, DeepLX) work without configuration.
