@@ -13,7 +13,7 @@ export class DeepLXProvider extends TranslationProvider {
   async translate(text: string, targetLang: string, sourceLang?: string): Promise<TranslationResponse> {
     const result = await deeplxTranslate(text, targetLang as Language, sourceLang as Language);
     return {
-      text: result,
+      translated_text: result,
       source_lang: sourceLang,
       target_lang: targetLang,
       provider: 'deepl'

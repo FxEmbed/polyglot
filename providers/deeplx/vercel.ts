@@ -27,7 +27,7 @@ export class DeepLXVercelProvider extends TranslationProvider {
       throw new Error(`DeepLX Vercel API error: ${JSON.stringify(data)}`);
     }
     return {
-      text: data.data,
+      translated_text: data.data,
       source_lang: data.source_lang,
       target_lang: data.target_lang,
       provider: 'deepl'

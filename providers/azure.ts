@@ -69,7 +69,7 @@ export class AzureProvider extends TranslationProvider {
     }
 
     return {
-      text: result.translations[0].text,
+      translated_text: result.translations[0].text,
       source_lang: sourceLang || result.detectedLanguage?.language || 'auto',
       target_lang: targetLang,
       provider: this.name

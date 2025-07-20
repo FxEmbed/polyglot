@@ -56,7 +56,7 @@ export class LibreTranslateProvider extends TranslationProvider {
     }
 
     return {
-      text: data.translatedText,
+      translated_text: data.translatedText,
       source_lang: sourceLang || 'auto',
       target_lang: targetLang,
       provider: this.name

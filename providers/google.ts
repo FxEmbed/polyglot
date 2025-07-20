@@ -29,7 +29,7 @@ export class GoogleTranslateProvider extends TranslationProvider {
     
     const result = await googleTranslate(text, options);
     return {
-      text: result.text,
+      translated_text: result.text,
       source_lang: sourceLang,
       target_lang: targetLang,
       provider: 'google'

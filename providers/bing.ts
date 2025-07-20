@@ -19,7 +19,7 @@ export class BingTranslateProvider extends TranslationProvider {
     }
     
     return {
-      text: result.translation,
+      translated_text: result.translation,
       source_lang: sourceLang || result.language?.from || 'auto',
       target_lang: targetLang,
       provider: this.name

@@ -103,7 +103,7 @@ If you configured an `ACCESS_TOKEN`, please provide it in the `Authorization` he
 **Response:**
 ```json
 {
-  "text": "¡Hola Mundo!",
+  "translated_text": "¡Hola Mundo!",
   "source_lang": "en",
   "target_lang": "es",
   "provider": "google"

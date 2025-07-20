@@ -5,7 +5,7 @@ export interface TranslationRequest {
 }
 
 export interface TranslationResponse {
-  text: string;
+  translated_text: string;
   source_lang?: string;
   target_lang: string;
   provider: string;

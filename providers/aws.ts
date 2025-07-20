@@ -160,7 +160,7 @@ export class AWSProvider extends TranslationProvider {
     }
 
     return {
-      text: data.TranslatedText,
+      translated_text: data.TranslatedText,
       source_lang: sourceLang || data.SourceLanguageCode || 'auto',
       target_lang: targetLang,
       provider: this.name

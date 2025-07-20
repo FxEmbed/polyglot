@@ -58,7 +58,7 @@ export class DeepLProvider extends TranslationProvider {
     }
 
     return {
-      text: result.text,
+      translated_text: result.text,
       source_lang: sourceLang || result.detected_source_language.toLowerCase(),
       target_lang: targetLang,
       provider: this.name
