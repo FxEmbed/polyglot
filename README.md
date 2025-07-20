@@ -9,7 +9,7 @@ With our native multi-provider architecture, we support multiple kinds of provid
 
 ## Features
 
-- 🎯 **Dynamic Selection**: Chooses between providers based on target language and availability
+- 🎯 **Dynamic Selection**: Chooses between providers based on target language, input string length, and availability
 - ⚖️ **Load Balancing and Rate Limit Leveling**: Distributes requests across translation providers
 - 🛡️ **Automatic Failover**: If one provider fails, automatically tries others (free first, then paid)
 - 🐍 **Designed to Scale**: Use higher rate limits for free services by scaling across servers and network providers

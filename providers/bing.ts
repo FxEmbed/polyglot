@@ -38,4 +38,9 @@ export class BingTranslateProvider extends TranslationProvider {
   isFree(): boolean {
     return true;
   }
+
+  // smol
+  getMaxTextLength(): number {
+    return 1000;
+  }
 } 

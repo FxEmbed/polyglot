@@ -81,4 +81,8 @@ export class DeepLProvider extends TranslationProvider {
   isFree(): boolean {
     return false;
   }
+
+  getMaxTextLength(): number {
+    return 500000;
+  }
 }

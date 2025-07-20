@@ -44,4 +44,8 @@ export class DeepLXVercelProvider extends TranslationProvider {
   isFree(): boolean {
     return true;
   }
+
+  getMaxTextLength(): number {
+    return 5000;
+  }
 } 

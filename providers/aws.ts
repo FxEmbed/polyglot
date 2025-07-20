@@ -182,4 +182,9 @@ export class AWSProvider extends TranslationProvider {
   isFree(): boolean {
     return false;
   }
+
+  // https://docs.aws.amazon.com/translate/latest/dg/what-is-limits.html
+  getMaxTextLength(): number {
+    return 10000;
+  }
 }

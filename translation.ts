@@ -29,14 +29,20 @@ export class TranslationService {
     console.log(`Initialized with ${this.availableProviders.length} available providers: ${this.availableProviders.map(p => p.name).join(', ')}`);
   }
 
-  // Get providers that support the target language, separated by free/paid
-  private getProvidersForLanguage(targetLang: string): { free: TranslationProvider[], paid: TranslationProvider[] } {
+  // Get providers that support the target language and can handle the text length, separated by free/paid
+  private getProvidersForLanguage(targetLang: string, textLength: number): { free: TranslationProvider[], paid: TranslationProvider[] } {
     const compatibleProviders = this.availableProviders.filter(provider => {
-      const supports = provider.supportsLanguage(targetLang);
-      if (!supports) {
+      const supportsLanguage = provider.supportsLanguage(targetLang);
+      const canHandleLength = provider.getMaxTextLength() >= textLength;
+      
+      if (!supportsLanguage) {
         console.log(`Provider ${provider.name} does not support language: ${targetLang}`);
       }
-      return supports;
+      if (!canHandleLength) {
+        console.log(`Provider ${provider.name} cannot handle text length ${textLength} (max: ${provider.getMaxTextLength()})`);
+      }
+      
+      return supportsLanguage && canHandleLength;
     });
 
     const free = compatibleProviders.filter(provider => provider.isFree());
@@ -45,8 +51,8 @@ export class TranslationService {
     return { free, paid };
   }
 
-  private selectProvider(targetLang: string): TranslationProvider | null {
-    const { free, paid } = this.getProvidersForLanguage(targetLang);
+  private selectProvider(targetLang: string, textLength: number): TranslationProvider | null {
+    const { free, paid } = this.getProvidersForLanguage(targetLang, textLength);
     
     // Prefer free providers first
     if (free.length > 0) {
@@ -66,8 +72,8 @@ export class TranslationService {
   }
 
   // Get other providers for fallback, prioritizing free over paid
-  private getOtherProviders(excludeProvider: TranslationProvider, targetLang: string): TranslationProvider[] {
-    const { free, paid } = this.getProvidersForLanguage(targetLang);
+  private getOtherProviders(excludeProvider: TranslationProvider, targetLang: string, textLength: number): TranslationProvider[] {
+    const { free, paid } = this.getProvidersForLanguage(targetLang, textLength);
     
     // Remove the excluded provider from both lists
     const availableFree = free.filter(provider => provider !== excludeProvider);
@@ -78,13 +84,14 @@ export class TranslationService {
   }
 
   async translate(text: string, targetLang: string, sourceLang?: string): Promise<TranslationResponse> {
-    const primaryProvider = this.selectProvider(targetLang);
+    const textLength = text.length;
+    const primaryProvider = this.selectProvider(targetLang, textLength);
     
     if (!primaryProvider) {
-      throw new Error(`No providers available for language: ${targetLang}`);
+      throw new Error(`No providers available for language: ${targetLang}, length ${textLength} chars`);
     }
 
-    const fallbackProviders = this.getOtherProviders(primaryProvider, targetLang);
+    const fallbackProviders = this.getOtherProviders(primaryProvider, targetLang, textLength);
 
     // Try primary provider
     try {

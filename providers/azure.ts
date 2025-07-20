@@ -87,4 +87,9 @@ export class AzureProvider extends TranslationProvider {
   isFree(): boolean {
     return false;
   }
+
+  // https://learn.microsoft.com/en-us/azure/ai-services/translator/service-limits#character-and-array-limits-per-request
+  getMaxTextLength(): number {
+    return 50000;
+  }
 }

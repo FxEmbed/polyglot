@@ -24,4 +24,7 @@ export abstract class TranslationProvider {
   
   // Check if provider is free (true) or paid (false)
   abstract isFree(): boolean;
+  
+  // Get maximum text length this provider can handle (in characters)
+  abstract getMaxTextLength(): number;
 } 

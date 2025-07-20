@@ -82,6 +82,11 @@ export class LibreTranslateProvider extends TranslationProvider {
     return false;
   }
 
+  getMaxTextLength(): number {
+    // LibreTranslate usually limits to 2000, but can be configured higher
+    return 2000;
+  }
+
   private async fetchLanguages(): Promise<void> {
     if (this.languagesFetched) {
       return;
