@@ -62,6 +62,8 @@ AWS_REGION="your_region" # optional, defaults to us-east-1
 
 **Endpoint:** `POST /translate`
 
+If you configured an `ACCESS_TOKEN`, please provide it in the `Authorization` header as `Bearer <token>`.
+
 **Request Body:**
 ```json
 {

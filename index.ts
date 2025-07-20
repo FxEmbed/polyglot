@@ -19,6 +19,18 @@ const server = Bun.serve({
     
     if (url.pathname === "/translate" && req.method === "POST") {
       try {
+        if (process.env.ACCESS_TOKEN && req.headers.get("Authorization") !== `Bearer ${process.env.ACCESS_TOKEN}`) {
+          return new Response(JSON.stringify({
+            error: "Unauthorized",
+            message: "Invalid access token"
+          }), {
+            status: 401,
+            headers: {
+              "Content-Type": "application/json",
+            },
+          });
+        }
+        
         const body = await req.json() as TranslationRequest;
         const { text, source_lang, target_lang } = body;
         
