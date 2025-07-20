@@ -15,6 +15,12 @@ jobs:
     permissions:
       contents: read
       packages: write
+    
+    strategy:
+      matrix:
+        platform:
+          - linux/amd64
+          - linux/arm64
 
     steps:
       - name: Checkout repository
@@ -30,20 +36,27 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: Extract platform suffix
+        id: platform
+        run: |
+          platform_pair=${{ matrix.platform }}
+          platform_suffix=${platform_pair#*/}
+          echo "suffix=${platform_suffix}" >> $GITHUB_OUTPUT
+
       - name: Extract metadata
         id: meta
         uses: docker/metadata-action@v5
         with:
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
           tags: |
-            type=sha,format=short
-            type=raw,value=latest,enable={{is_default_branch}}
+            type=sha,format=short,suffix=-${{ steps.platform.outputs.suffix }}
+            type=raw,value=latest-${{ steps.platform.outputs.suffix }},enable={{is_default_branch}}
 
       - name: Build and push Docker image
         uses: docker/build-push-action@v5
         with:
           context: .
-          platforms: linux/amd64,linux/arm64
+          platforms: ${{ matrix.platform }}
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
