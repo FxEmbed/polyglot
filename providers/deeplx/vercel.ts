@@ -48,4 +48,9 @@ export class DeepLXVercelProvider extends TranslationProvider {
   getMaxTextLength(): number {
     return 5000;
   }
+
+  // No known constraints on text type
+  supportsText(text: string): boolean {
+    return true;
+  }
 } 

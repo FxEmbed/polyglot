@@ -85,4 +85,9 @@ export class DeepLProvider extends TranslationProvider {
   getMaxTextLength(): number {
     return 500000;
   }
+
+  // No known constraints on text type
+  supportsText(text: string): boolean {
+    return true;
+  }
 }

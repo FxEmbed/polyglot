@@ -27,4 +27,7 @@ export abstract class TranslationProvider {
   
   // Get maximum text length this provider can handle (in characters)
   abstract getMaxTextLength(): number;
+
+  // Check if provider supports a specific text
+  abstract supportsText(text: string): boolean;
 } 

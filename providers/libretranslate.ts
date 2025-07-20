@@ -91,6 +91,11 @@ export class LibreTranslateProvider extends TranslationProvider {
     return 2000;
   }
 
+  // No known constraints on text type
+  supportsText(text: string): boolean {
+    return true;
+  }
+
   private async fetchLanguages(): Promise<void> {
     if (this.languagesFetched) {
       return;

@@ -30,6 +30,7 @@ export class BingTranslateProvider extends TranslationProvider {
     return this.supportedLanguages.has(languageCode.toLowerCase());
   }
 
+
   isAvailable(): boolean {
     // Always available since we don't need API keys
     return true;
@@ -42,5 +43,9 @@ export class BingTranslateProvider extends TranslationProvider {
   // smol
   getMaxTextLength(): number {
     return 1000;
+  }
+  // Bing Translate API doesn't support outputting newlines for some reason
+  supportsText(text: string): boolean {
+    return text.match(/\n/g) === null;
   }
 } 
