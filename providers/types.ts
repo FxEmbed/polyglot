@@ -15,4 +15,10 @@ export interface TranslationResponse {
 export abstract class TranslationProvider {
   abstract name: string;
   abstract translate(text: string, targetLang: string, sourceLang?: string): Promise<TranslationResponse>;
+  
+  // Check if provider supports a specific language
+  abstract supportsLanguage(languageCode: string): boolean;
+  
+  // Check if provider is available (has required configuration)
+  abstract isAvailable(): boolean;
 } 

@@ -4,7 +4,7 @@ import type { TranslationRequest } from './providers/index.js';
 const translationService = new TranslationService();
 
 const server = Bun.serve({
-  port: 3000,
+  port: process.env.PORT ? parseInt(process.env.PORT) : 3220,
   async fetch(req) {
     const url = new URL(req.url);
     
@@ -52,4 +52,4 @@ const server = Bun.serve({
   },
 });
 
-console.log(`🚀 Server running at http://localhost:${server.port}/`);
+console.log(`🗣️ Ready to translate (http://localhost:${server.port})`);
