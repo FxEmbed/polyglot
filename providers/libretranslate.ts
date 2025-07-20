@@ -68,12 +68,16 @@ export class LibreTranslateProvider extends TranslationProvider {
   }
 
   isAvailable(): boolean {
+    if (!process.env.LIBRETRANSLATE_URL) {
+      return false;
+    }
+
     // Ensure languages are pre-loaded
     if (!this.languagesFetched) {
       this.fetchLanguages();
     }
 
-    return !!process.env.LIBRETRANSLATE_URL;
+    return true;
   }
 
   // FIXME: Figure out a way to slot LibreTranslate in between free and paid providers
