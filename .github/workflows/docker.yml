@@ -12,16 +12,10 @@ env:
 jobs:
   build:
     runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
     permissions:
       contents: read
       packages: write
-    
-    strategy:
-      matrix:
-        platform:
-          - linux/amd64
-          - linux/arm64
-
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -36,29 +30,19 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Extract platform suffix and commit hash
-        id: platform
-        run: |
-          platform_pair=${{ matrix.platform }}
-          platform_suffix=${platform_pair#*/}
-          commit_hash=${GITHUB_SHA::7}
-          echo "suffix=${platform_suffix}" >> $GITHUB_OUTPUT
-          echo "commit=${commit_hash}" >> $GITHUB_OUTPUT
-
-      - name: Extract metadata
+      - name: Extract metadata for latest
         id: meta
         uses: docker/metadata-action@v5
         with:
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
           tags: |
-            type=raw,value=${{ steps.platform.outputs.commit }}-${{ steps.platform.outputs.suffix }}
-            type=raw,value=latest-${{ steps.platform.outputs.suffix }},enable={{is_default_branch}}
+            type=raw,value=latest
 
-      - name: Build and push Docker image
+      - name: Build and push latest multi-platform image
         uses: docker/build-push-action@v5
         with:
           context: .
-          platforms: ${{ matrix.platform }}
+          platforms: linux/amd64,linux/arm64
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
