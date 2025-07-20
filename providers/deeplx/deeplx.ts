@@ -27,4 +27,8 @@ export class DeepLXProvider extends TranslationProvider {
   isAvailable(): boolean {
     return true;
   }
+
+  isFree(): boolean {
+    return true;
+  }
 } 

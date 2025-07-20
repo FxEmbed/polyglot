@@ -21,4 +21,7 @@ export abstract class TranslationProvider {
   
   // Check if provider is available (has required configuration)
   abstract isAvailable(): boolean;
+  
+  // Check if provider is free (true) or paid (false)
+  abstract isFree(): boolean;
 } 

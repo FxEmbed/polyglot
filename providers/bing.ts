@@ -34,4 +34,8 @@ export class BingTranslateProvider extends TranslationProvider {
     // Always available since we don't need API keys
     return true;
   }
+
+  isFree(): boolean {
+    return true;
+  }
 } 

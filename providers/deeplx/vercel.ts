@@ -40,4 +40,8 @@ export class DeepLXVercelProvider extends TranslationProvider {
   isAvailable(): boolean {
     return !!process.env.DEEPLX_VERCEL_URL;
   }
+
+  isFree(): boolean {
+    return true;
+  }
 } 

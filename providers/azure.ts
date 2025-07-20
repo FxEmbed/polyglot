@@ -83,4 +83,8 @@ export class AzureProvider extends TranslationProvider {
   isAvailable(): boolean {
     return !!process.env.AZURE_TRANSLATOR_KEY;
   }
+
+  isFree(): boolean {
+    return false;
+  }
 }

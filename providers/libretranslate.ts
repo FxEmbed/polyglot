@@ -76,6 +76,12 @@ export class LibreTranslateProvider extends TranslationProvider {
     return !!process.env.LIBRETRANSLATE_URL;
   }
 
+  // FIXME: Figure out a way to slot LibreTranslate in between free and paid providers
+  // Translation quality is hit or miss depending on language
+  isFree(): boolean {
+    return false;
+  }
+
   private async fetchLanguages(): Promise<void> {
     if (this.languagesFetched) {
       return;

@@ -29,34 +29,56 @@ export class TranslationService {
     console.log(`Initialized with ${this.availableProviders.length} available providers: ${this.availableProviders.map(p => p.name).join(', ')}`);
   }
 
-  // Get providers that support the target language
-  private getProvidersForLanguage(targetLang: string): TranslationProvider[] {
-    return this.availableProviders.filter(provider => {
+  // Get providers that support the target language, separated by free/paid
+  private getProvidersForLanguage(targetLang: string): { free: TranslationProvider[], paid: TranslationProvider[] } {
+    const compatibleProviders = this.availableProviders.filter(provider => {
       const supports = provider.supportsLanguage(targetLang);
       if (!supports) {
         console.log(`Provider ${provider.name} does not support language: ${targetLang}`);
       }
       return supports;
     });
+
+    const free = compatibleProviders.filter(provider => provider.isFree());
+    const paid = compatibleProviders.filter(provider => !provider.isFree());
+
+    return { free, paid };
   }
 
-  // Get random provider from language-compatible providers
-  private getRandomProvider(targetLang: string): TranslationProvider | null {
-    const compatibleProviders = this.getProvidersForLanguage(targetLang);
-    if (compatibleProviders.length === 0) {
-      return null;
+  private selectProvider(targetLang: string): TranslationProvider | null {
+    const { free, paid } = this.getProvidersForLanguage(targetLang);
+    
+    // Prefer free providers first
+    if (free.length > 0) {
+      const randomIndex = Math.floor(Math.random() * free.length);
+      console.log(`Selected free provider: ${free[randomIndex]?.name} (${free.length} free providers available)`);
+      return free[randomIndex] || null;
     }
-    const randomIndex = Math.floor(Math.random() * compatibleProviders.length);
-    return compatibleProviders[randomIndex] || null;
+    
+    // Fall back to paid providers if no free ones available
+    if (paid.length > 0) {
+      const randomIndex = Math.floor(Math.random() * paid.length);
+      console.log(`No free providers available, using paid provider: ${paid[randomIndex]?.name} (${paid.length} paid providers available)`);
+      return paid[randomIndex] || null;
+    }
+    
+    return null;
   }
 
-  // Get other providers (for fallback) that support the language
+  // Get other providers for fallback, prioritizing free over paid
   private getOtherProviders(excludeProvider: TranslationProvider, targetLang: string): TranslationProvider[] {
-    return this.getProvidersForLanguage(targetLang).filter(provider => provider !== excludeProvider);
+    const { free, paid } = this.getProvidersForLanguage(targetLang);
+    
+    // Remove the excluded provider from both lists
+    const availableFree = free.filter(provider => provider !== excludeProvider);
+    const availablePaid = paid.filter(provider => provider !== excludeProvider);
+    
+    // Return free providers first, then paid providers
+    return [...availableFree, ...availablePaid];
   }
 
   async translate(text: string, targetLang: string, sourceLang?: string): Promise<TranslationResponse> {
-    const primaryProvider = this.getRandomProvider(targetLang);
+    const primaryProvider = this.selectProvider(targetLang);
     
     if (!primaryProvider) {
       throw new Error(`No providers available for language: ${targetLang}`);
@@ -74,7 +96,7 @@ export class TranslationService {
       // Try fallback providers so at least we get SOMETHING
       for (const provider of fallbackProviders) {
         try {
-          console.log(`Falling back to ${provider.name}`);
+          console.log(`Falling back to ${provider.name}...`);
           return await provider.translate(text, targetLang, sourceLang);
         } catch (fallbackError) {
           console.error(`${provider.name} fallback failed:`, fallbackError);

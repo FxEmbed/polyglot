@@ -42,4 +42,8 @@ export class DeepLXCloudflareProvider extends TranslationProvider {
   isAvailable(): boolean {
     return !!process.env.DEEPLX_CLOUDFLARE_URL;
   }
+
+  isFree(): boolean {
+    return true;
+  }
 } 

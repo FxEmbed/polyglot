@@ -77,4 +77,8 @@ export class DeepLProvider extends TranslationProvider {
   isAvailable(): boolean {
     return !!process.env.DEEPL_API_KEY;
   }
+
+  isFree(): boolean {
+    return false;
+  }
 }
