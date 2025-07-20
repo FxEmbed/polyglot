@@ -2,22 +2,45 @@
 
 A fast, reliable, and modular translation API designed to meet the scale required by FxEmbed.
 
-## 🔄 Native Multi-Provider Architecture
+With our native multi-provider architecture, we support multiple kinds of providers:
+- 🤑 **Free translations** from popular services like *Google Translate*, *DeepL*, and *Bing Translate*
+- 💸 **Official APIs** using your own API keys for services like *Azure AI Translator*, *DeepL API*, and *AWS Translate*. Each of which have free tiers or trials.
+- 🏴‍☠️ **Self-hosted alternative** *LibreTranslate*
 
-We support scraping free translations from popular services like Google Translate, Bing Translate, and DeepL, using official APIs such as Azure AI Translator, DeepL API, and AWS Translate, as well as self-hosted alternative LibreTranslate.
+## Features
 
 - 🎯 **Dynamic Selection**: Chooses between providers based on target language and availability
-- ⚖️ **Load Balancing and Rate Limit Leveling**: Distributes requests across providers
-- 🛡️ **Automatic Failover**: If one provider fails, automatically tries others
+- ⚖️ **Load Balancing and Rate Limit Leveling**: Distributes requests across translation providers
+- 🛡️ **Automatic Failover**: If one provider fails, automatically tries others (free first, then paid)
 - 🐍 **Designed to Scale**: Use higher rate limits for free services by scaling across servers and network providers
 
 ## 🚀 Quick Start
 
-### Prerequisites
+### Using Docker Compose
 
-- [Bun](https://bun.sh) runtime installed
+Edit the `docker-compose.yml` file to set bound port and your API keys if you want to use paid translation providers.
 
-### Installation
+```bash
+docker compose up -d
+```
+### Using Docker
+
+```bash
+# Pull and run the latest image
+docker run -p 3220:3220 ghcr.io/fxembed/polyglot:latest
+
+# Or run with environment variables for paid APIs
+docker run -p 3220:3220 \
+  -e AZURE_TRANSLATOR_KEY="your_azure_key" \
+  -e AZURE_TRANSLATOR_REGION="eastus" \
+  -e DEEPL_API_KEY="your_deepl_key" \
+  ghcr.io/fxembed/polyglot:latest
+```
+
+
+### Standalone
+
+This requires the [Bun](https://bun.sh) runtime installed.
 
 ```bash
 # Clone the repository
@@ -31,7 +54,7 @@ bun install
 bun run index.ts
 ```
 
-The API will be available at `http://localhost:3000`
+The API will be available at `http://localhost:3220` (port configurable in `.env` or `docker-compose.yml`)
 
 ### Optional: Configure Paid APIs
 
@@ -101,31 +124,10 @@ curl -X POST http://localhost:3220/translate \
   -d '{"text": "Bonjour le monde", "source_lang": "fr", "target_lang": "en"}'
 ```
 
-## 🐳 Docker Deployment
-
-### Using Docker
-
-```bash
-# Pull and run the latest image
-docker run -p 3220:3220 ghcr.io/fxembed/polyglot:latest
-
-# Or run with environment variables for paid APIs
-docker run -p 3220:3220 \
-  -e AZURE_TRANSLATOR_KEY="your_azure_key" \
-  -e AZURE_TRANSLATOR_REGION="eastus" \
-  -e DEEPL_API_KEY="your_deepl_key" \
-  ghcr.io/fxembed/polyglot:latest
-```
-
-### Using Docker Compose
-
-Edit the `docker-compose.yml` file to set bound port and your API keys if you want to use paid translation providers.
-
-```bash
-# Start the service
-docker-compose up -d
-```
-
 ## 📄 License
 
-This project is licensed under AGPL
+This project is licensed under AGPL-3.0.
+
+## Disclaimer
+
+This project is not affiliated with any of the providers listed above. The names of the providers may be trademarks or registered trademarks of their respective owners. Scraping from free APIs may violate their respective EULA.
