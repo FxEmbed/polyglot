@@ -7,6 +7,15 @@ const server = Bun.serve({
   port: process.env.PORT ? parseInt(process.env.PORT) : 3220,
   async fetch(req) {
     const url = new URL(req.url);
+
+    if (url.pathname === "/ping") {
+      return new Response("Pong!", {
+        status: 200,
+        headers: {
+          "Content-Type": "text/plain",
+        },
+      });
+    }
     
     if (url.pathname === "/translate" && req.method === "POST") {
       try {

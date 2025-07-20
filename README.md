@@ -97,6 +97,31 @@ curl -X POST http://localhost:3220/translate \
   -d '{"text": "Bonjour le monde", "source_lang": "fr", "target_lang": "en"}'
 ```
 
+## 🐳 Docker Deployment
+
+### Using Docker
+
+```bash
+# Pull and run the latest image
+docker run -p 3220:3220 ghcr.io/fxembed/polyglot:latest
+
+# Or run with environment variables for paid APIs
+docker run -p 3220:3220 \
+  -e AZURE_TRANSLATOR_KEY="your_azure_key" \
+  -e AZURE_TRANSLATOR_REGION="eastus" \
+  -e DEEPL_API_KEY="your_deepl_key" \
+  ghcr.io/fxembed/polyglot:latest
+```
+
+### Using Docker Compose
+
+Edit the `docker-compose.yml` file to set bound port and your API keys if you want to use paid translation providers.
+
+```bash
+# Start the service
+docker-compose up -d
+```
+
 ## 📄 License
 
 This project is licensed under AGPL
