@@ -29,7 +29,7 @@ docker compose up -d
 # Pull and run the latest image
 docker run -p 3220:3220 ghcr.io/fxembed/polyglot:latest
 
-# Or run with environment variables for paid APIs
+# Or run with environment variables 
 docker run -p 3220:3220 \
   -e AZURE_TRANSLATOR_KEY="your_azure_key" \
   -e AZURE_TRANSLATOR_REGION="eastus" \
