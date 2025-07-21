@@ -3,18 +3,18 @@
 A fast, reliable, and modular translation API designed to meet the scale required by FxEmbed.
 
 With our native multi-provider architecture, we support multiple kinds of providers:
-- 🤑 **Free translations** from popular services like *Google Translate*, *DeepL*, and *Bing Translate*
-- 💸 **Official APIs** using your own API keys for services like *Azure AI Translator*, *DeepL API*, and *AWS Translate*. Each of which have free tiers or trials.
-- 🏴‍☠️ **Self-hosted alternative** *LibreTranslate*
+- **Free translations** from popular services like *Google Translate*, *DeepL*, and *Bing Translate*
+- **Official APIs** using your own API keys for services like *Azure AI Translator*, *DeepL API*, and *AWS Translate*. Each of which have free tiers or trials.
+- **Self-hosted alternative** *LibreTranslate*
 
 ## Features
 
-- 🎯 **Dynamic Selection**: Chooses between providers based on target language, input string length, and availability
-- ⚖️ **Load Balancing and Rate Limit Leveling**: Distributes requests across translation providers
-- 🛡️ **Automatic Failover**: If one provider fails, automatically tries others (free first, then paid)
-- 🐍 **Designed to Scale**: Use higher rate limits for free services by scaling across servers and network providers
+- **Dynamic Selection**: Chooses between providers based on target language, input string length, and availability
+- **Load Balancing and Rate Limit Leveling**: Distributes requests across translation providers
+- **Automatic Failover**: If one provider fails, automatically tries others (free first, then paid)
+- **Designed to Scale**: Use higher rate limits for free services by scaling across servers and network providers
 
-## 🚀 Quick Start
+## Quick Start
 
 ### Using Docker Compose
 
